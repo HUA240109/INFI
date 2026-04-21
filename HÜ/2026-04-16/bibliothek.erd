@@ -1,0 +1,33 @@
+erdiagram Model
+
+notation=crowsfoot
+
+entity Mitarbeiter {
+   id key
+   name
+}
+
+entity Buch {
+   id key
+   Titel
+   Autor
+   Verlag
+   ISBN
+}
+
+entity Exemplar {
+   id key
+   BuchID
+   Standort
+   Status
+}
+
+relationship Hat_Exemplare {
+   Buch[1] -> Exemplar[N]
+}
+
+relationship Leiht_Aus {
+   Mitarbeiter[N] -> Exemplar[N]
+   Ausleihdatum
+   Rueckgabedatum optional
+}
