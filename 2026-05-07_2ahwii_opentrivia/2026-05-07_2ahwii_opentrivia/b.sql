@@ -1,0 +1,1 @@
+SELECT name FROM Category ORDER BY name ASC;
