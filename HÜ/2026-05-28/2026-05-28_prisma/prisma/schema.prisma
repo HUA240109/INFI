@@ -1,0 +1,37 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "client"
+  runtime  = "deno"
+}
+
+model Nutzer {
+  id           Int       @id @default(autoincrement())
+  benutzername String
+  email        String    @unique
+  premium      Boolean   @default(false)
+  playlists    Playlist[]
+  hoerverlauf  Song[]
+}
+
+model Song {
+  id        Int       @id @default(autoincrement())
+  titel     String
+  interpret String
+  dauerSek  Int
+  nutzer    Nutzer[]  @relation("Hoerverlauf")
+  playlists Playlist[]
+}
+
+model Playlist {
+  id               Int       @id @default(autoincrement())
+  name             String
+  erstellungsdatum DateTime  @default(now())
+  nutzer           Nutzer    @relation(fields: [nutzerId], references: [id])
+  nutzerId         Int
+  songs            Song[]
+}
